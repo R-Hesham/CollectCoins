@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CollectCoins_Library
 {
-    internal class Player
+    public class Player
     {
         string name = string.Empty;
         Point2D position = new Point2D();
@@ -38,6 +38,10 @@ namespace CollectCoins_Library
         public void MoveLeft()
         {
             position.X--;
+        }
+        public override string ToString()
+        {
+            return $"Player {name} will play with symbol {symbol}";
         }
     }
 }
