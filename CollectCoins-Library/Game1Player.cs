@@ -6,20 +6,34 @@ using System.Threading.Tasks;
 
 namespace CollectCoins_Library
 {
-    public class Game1Player
+    public class Game1Player : IGame
     {
         Player player;
         Board board;
+
+        public Board Board { get => board; set => board = value; }
+        public Player Player { get => player; set => player = value; }
+
+        public Game1Player()
+        {
+            board = new Board();
+        }
+        public void StartGame()
+        {
+            Console.WriteLine("Game with 1 player started");
+            Console.WriteLine(Player);
+            Console.WriteLine(Board);
+        }
 
         public void MovePlayer(string direction)
         {
             switch(direction)
             {
                 case "up":
-                    Point2D point = player.Position;
-                    player.MoveUp();
+                    Point2D point = Player.Position;
+                    Player.MoveUp();
                     char oldChar;
-                    int result = board.ReplaceOnBoard(player.Symbol, point, player.Position, out oldChar);
+                    int result = Board.ReplaceOnBoard(Player.Symbol, point, Player.Position, out oldChar);
                     switch (result)
                     {
                         case 1:
@@ -31,15 +45,21 @@ namespace CollectCoins_Library
                     }
                     break;
                 case "down":
-                    player.MoveDown();
+                    Player.MoveDown();
                     break;
                 case "left":
-                    player.MoveLeft();
+                    Player.MoveLeft();
                     break;
                 case "right":
-                    player.MoveRight();
+                    Player.MoveRight();
                     break;
             }
+        }
+
+
+        public void GameInstructions()
+        {
+
         }
     }
 }

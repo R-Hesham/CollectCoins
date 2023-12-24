@@ -110,7 +110,7 @@
                 return 3;
             }
         }
-        public string Draw()
+        public override string ToString()
         {
             string board = "#==1==2==3==4==5==6==7==8==9=*\n";
             for (int i = 1; i < 10; i++)

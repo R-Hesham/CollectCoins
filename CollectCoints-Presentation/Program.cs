@@ -27,23 +27,14 @@ do
             switch (mainChoice)
             {
                 case 1:
-                    foreach(var player in Menus.PlayerInfoMenu(1))
-                    {
-                        //Console.WriteLine(player);
-                    }
+                    ManageGame.Start(1);
                     Console.ReadKey();
-                    
                     break;
                 case 2:
-                    foreach (var player in Menus.PlayerInfoMenu(2))
-                    {
-                        //Console.WriteLine(player);
-                    }
+                    ManageGame.Start(2);
                     Console.ReadKey();
                     break;
                 case 3:
-                    Console.WriteLine(mainChoice);
-
                     Environment.Exit(0);
                     break;
             }

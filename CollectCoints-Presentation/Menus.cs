@@ -6,7 +6,8 @@ namespace CollectCoints_Presentation
     {
         public static void MainMenu(int choice)
         {
-            GameName();
+            StaticMenus.GameName();
+            Console.WriteLine();
             switch (choice)
             {
                 case 1:
@@ -22,54 +23,35 @@ namespace CollectCoints_Presentation
                 case 3:
                     AnotherChoice("1 Player");
                     AnotherChoice("2 Players");
-                    CurrentChoice("Exit"); 
+                    CurrentChoice("Exit");
                     break;
             }
             Console.WriteLine();
             Console.WriteLine("==============================");
         }
 
-        public static IEnumerable<Player> PlayerInfoMenu(int choice)
+        public static IEnumerable<Player> PlayerInfoMenu(int numberOfPlayers)
         {
-            GameName();
-            GameStart();
+            StaticMenus.GameName();
+            StaticMenus.GameInitializing();
             Player player;
-            switch (choice)
+            if (numberOfPlayers < 1) yield break;
+            (int x, int y) = Console.GetCursorPosition();
+            for (int i = 1; i <= numberOfPlayers; i++)
             {
-                case 1:
-                    player = GetPlayerData();
-                    Console.WriteLine("Now: ");
-                    Console.WriteLine(player);
-                    yield return player;
-                    break;
-
-                case 2:
-                    (int x,int y) = Console.GetCursorPosition();
-                    for (int i = 1;i < 3; i++)
-                    {
-                        Console.SetCursorPosition(x, y);
-                        ClearConsoleArea(40, 10);
-                        Console.SetCursorPosition(x, y);
-                        Console.WriteLine($"Player {i}");
-                        player = GetPlayerData();
-                        Console.WriteLine("Now: ");
-                        Console.WriteLine(player);
-                        yield return player;
-                    }
-                    break;
-                default:
-                    yield break;
+                Console.SetCursorPosition(x, y);
+                ConsoleEditor.ClearConsoleArea(40, 11);
+                Console.SetCursorPosition(x, y);
+                Console.WriteLine($"Player {i}");
+                player = GetPlayerData();
+                Console.WriteLine("Now: ");
+                Console.WriteLine(player);
+                yield return player;
             }
         }
 
 
-        private static void GameName()
-        {
-            Console.WriteLine("==============================");
-            Console.WriteLine("         Collect Coins        ");
-            Console.WriteLine("==============================");
-            Console.WriteLine();
-        }
+        
         private static void CurrentChoice(string choice)
         {
             Console.WriteLine($">> {choice}");
@@ -78,11 +60,7 @@ namespace CollectCoints_Presentation
         {
             Console.WriteLine($"   {choice}");
         }
-        private static void GameStart()
-        {
-            Console.WriteLine("         *Game Started   \r\n" +
-                "==============================");
-        }
+        
 
         private static Player GetPlayerData()
         {
@@ -92,25 +70,25 @@ namespace CollectCoints_Presentation
             do
             {
                 Console.SetCursorPosition(x, y);
-                ClearConsoleArea(40, 3);
+                ConsoleEditor.ClearConsoleArea(40, 3);
                 Console.SetCursorPosition(x, y);
                 Console.WriteLine("Enter Player Name: ");
                 name = Console.ReadLine();
             } while (name.Length < 3);
-            (x,y) = Console.GetCursorPosition();
+            (x, y) = Console.GetCursorPosition();
             Console.WriteLine("Enter Player symbol");
             Console.WriteLine("Note: Enter only one char.");
             string symbol = Console.ReadLine();
-            while(symbol.Length > 1)
+            while (symbol.Length > 1)
             {
                 Console.WriteLine($"Do you agree that your symbol is {symbol[0]}?\n\t\t yes / no");
                 string response = Console.ReadLine();
-                if(response.Contains("Y") || response.Contains("y"))
+                if (response.Contains("Y") || response.Contains("y"))
                 {
                     break;
                 }
                 Console.SetCursorPosition(x, y);
-                ClearConsoleArea(40, 6);
+                ConsoleEditor.ClearConsoleArea(40, 6);
                 Console.SetCursorPosition(x, y);
                 Console.WriteLine("Enter Player symbol");
                 Console.WriteLine("Note: Enter only one char.");
@@ -118,19 +96,7 @@ namespace CollectCoints_Presentation
             }
             return new Player(name, symbol[0]);
         }
-        static void ClearConsoleArea(int width, int height)
-        {
-            for (int i = 0; i < height; i++)
-            {
-                for (int j = 0; j < width; j++)
-                {
-                    Console.Write(' ');
-                }
-
-                // Move the cursor to the next line
-                Console.WriteLine();
-            }
-        }
+        
     }
 }
 
